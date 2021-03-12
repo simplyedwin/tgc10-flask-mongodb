@@ -16,11 +16,23 @@
 <body>
     <div class="container">
 
-        <ul>
-            {%for listing in listings%}
+        {%for listing in htmllistings%}
+
+        <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{listing.name}}</h5>
+                <p class="card-text">{{listing.summary}}</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+        {%endfor%}
+
+        <!-- <ul>
+            {%for listing in htmllistings%}
             <li>Listing name: {{listing}}</li>
             {%endfor%}
-        </ul>
+        </ul> -->
 
 
     </div>

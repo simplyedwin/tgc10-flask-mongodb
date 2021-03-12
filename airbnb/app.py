@@ -26,7 +26,7 @@ def show_listings():
         'name':1,
         'summary':1
     }).limit(20)
-    return render_template('listing.template.html', listings=listings)
+    return render_template('listing.template.html', htmllistings=listings)
 
 
 @app.route('/about-us')
