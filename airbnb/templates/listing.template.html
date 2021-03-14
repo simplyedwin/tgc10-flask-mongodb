@@ -18,11 +18,27 @@
 
         <h1>Fake Airbnb</h1>
         <form method="GET">
-            <input type="text" name="country" class="form-control" placeholder="Enter a country to search">
-            <input type="text" name="beds" class="form-control" placeholder="Min no. of beds">
-            
+
+            <div>
+                <input type="text" name="country" class="form-control" placeholder="Enter a country to search">
+                <input type="text" name="beds" class="form-control" placeholder="Min no. of beds">
+            </div>
             <input type="submit" value="Search" class="btn btn-primary mt-3">
         </form>
+
+        <div>
+
+            {% if htmlpage != 0 %}
+
+            <a href="?&page={{htmlpage-1}}" class="btn btn-primary"> Previous Page</a>
+            <a href="?&page={{htmlpage+1}}" class="btn btn-primary"> Next Page</a>
+
+            {% else %}
+            <a href="?&page={{htmlpage+1}}" class="btn btn-primary"> Next Page</a>
+
+            {% endif %}
+
+        </div>
 
 
         <div style="display: flex; flex-wrap: wrap;">

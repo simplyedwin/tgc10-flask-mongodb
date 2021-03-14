@@ -27,6 +27,15 @@ def show_listings():
     # retrieve the value of the input named country
     country = request.args.get('country')
     min_beds = request.args.get('beds')
+    page = request.args.get('page')
+    page = request.args.get('page')
+
+    # if page contains None, convert it to 0
+    if page is None:
+        page = 0
+    else:
+        # else convert the string to an integer
+        page = int(page)
 
     criteria = {}
     if country:
@@ -37,27 +46,16 @@ def show_listings():
             "$gte": int(min_beds)
         }
 
-    print(country)
-
     listings = db.listingsAndReviews.find(criteria, {
         'name': 1,
         'summary': 1,
         'images': 1,
         'address': 1,
         'beds': 1
-    }).limit(20)
-    return render_template('listing.template.html', htmllistings=listings)
-
-
-@app.route('/about-us')
-def about():
-    return '<h1>about-us<h1>'
-
-
-@app.route('/lucky')
-def luckyno():
-    num = random.randint(1000, 9999)
-    return 'Your lucky number is {}'.format(num)
+    }).skip(page*20).limit(20)
+    return render_template('listing.template.html',
+                           htmllistings=listings, htmlpage=page,
+                           htmlfullpath=request.full_path)
 
 
 if __name__ == "__main__":
