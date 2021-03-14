@@ -22,9 +22,29 @@ db = client[DB_NAME]
 
 @app.route('/')
 def show_listings():
-    listings = db.listingsAndReviews.find({},{
-        'name':1,
-        'summary':1
+    # if method is GET, use the below.else use
+    # request.form.get for POST method
+    # retrieve the value of the input named country
+    country = request.args.get('country')
+    min_beds = request.args.get('beds')
+
+    criteria = {}
+    if country:
+        criteria['address.country'] = country
+
+    if min_beds:
+        criteria['beds'] = {
+            "$gte": int(min_beds)
+        }
+
+    print(country)
+
+    listings = db.listingsAndReviews.find(criteria, {
+        'name': 1,
+        'summary': 1,
+        'images': 1,
+        'address': 1,
+        'beds': 1
     }).limit(20)
     return render_template('listing.template.html', htmllistings=listings)
 

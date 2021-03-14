@@ -16,18 +16,29 @@
 <body>
     <div class="container">
 
-        {%for listing in htmllistings%}
+        <h1>Fake Airbnb</h1>
+        <form method="GET">
+            <input type="text" name="country" class="form-control" placeholder="Enter a country to search">
+            <input type="text" name="beds" class="form-control" placeholder="Min no. of beds">
+            
+            <input type="submit" value="Search" class="btn btn-primary mt-3">
+        </form>
 
-        <div class="card" style="width: 18rem;">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">{{listing.name}}</h5>
-                <p class="card-text">{{listing.summary}}</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+
+        <div style="display: flex; flex-wrap: wrap;">
+            {%for listing in htmllistings%}
+
+            <div class="card m-3" style="width: 18rem;">
+                <img src="{{listing.images.picture_url}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{listing.name}}</h5>
+                    <h6 class="card-title">No. of Beds: {{listing.beds}}</h6>
+                    <h6 class="card-title">Country: {{listing.address.country}}</h6>
+                    <p class="card-text">{{listing.summary}}</p>
+                </div>
             </div>
+            {%endfor%}
         </div>
-        {%endfor%}
-
         <!-- <ul>
             {%for listing in htmllistings%}
             <li>Listing name: {{listing}}</li>
