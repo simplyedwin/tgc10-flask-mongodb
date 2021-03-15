@@ -15,5 +15,11 @@ MONGO_URI = os.environ.get('MONGO_URI')
 DB_NAME = 'tgc10_new_shelter'
 client = pymongo.MongoClient(MONGO_URI)
 
+
+@app.route('/animals/create')
+def show_create_animals():
+    return render_template(create_animals.template.html)
+
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'), port=os.environ.get('PORT'), debug=True)
