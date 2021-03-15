@@ -49,7 +49,7 @@ def process_create_animals():
         }
     )
 
-    return "New Animal Saved!"
+    return redirect(url_for('show_all_animals'))
 
 # this route is to get the id to be deleted
 # and prompt the user for confirmation
@@ -72,6 +72,32 @@ def process_delete_animal(animal_id):
     db.animals.remove({
         "_id": ObjectId(animal_id)
     })
+
+    return redirect(url_for('show_all_animals'))
+
+
+@app.route('/animals/<animal_id>/update')
+def show_update_animal(animal_id):
+    animal_to_edit = db.animals.find_one(
+        {
+            "_id": ObjectId(animal_id)
+        }
+    )
+
+    return render_template('show_update_animal.template.html',
+                           html_animal_to_edit=animal_to_edit)
+
+
+@app.route('/animals/<animal_id>/update', methods=['POST'])
+def process_update_animals(animal_id):
+    db.animals.update_one(
+        {
+            "_id": ObjectId(animal_id)
+        },
+        {
+            "$set": request.form
+        }
+    )
 
     return redirect(url_for('show_all_animals'))
 
