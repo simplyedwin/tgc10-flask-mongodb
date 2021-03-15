@@ -14,11 +14,38 @@ MONGO_URI = os.environ.get('MONGO_URI')
 
 DB_NAME = 'tgc10_new_shelter'
 client = pymongo.MongoClient(MONGO_URI)
+db = client[DB_NAME]
+
+
+@app.route('/animals')
+def show_all_animals():
+    animals = db.animals.find()
+    return render_template('show_animals.template.html', htmlanimals=animals)
 
 
 @app.route('/animals/create')
 def show_create_animals():
-    return render_template(create_animals.template.html)
+    return render_template('create_animals.template.html')
+
+
+@app.route('/animals/create', methods=['POST'])
+def process_create_animals():
+    name = request.form.get('name')
+    breed = request.form.get('breed')
+    age = request.form.get('age')
+    animal_type = request.form.get('type')
+
+    # insert only ONE new document
+    db.animals.insert_one(
+        {
+            "name": name,
+            "age": age,
+            "breed": breed,
+            "type": animal_type
+        }
+    )
+
+    return "New Animal Saved!"
 
 
 if __name__ == '__main__':

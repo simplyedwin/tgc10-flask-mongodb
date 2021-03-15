@@ -1,6 +1,9 @@
-{% extends 'base.template.html'%}
+{% extends 'basic.template.html'%}
 
 {% block content %}
+
+<h1>Add New Animal</h1>
+
 <form method="POST">
     <div>
         <label class="form-label">Name:</label>
@@ -31,6 +34,8 @@
             <option>Rabbit</option>
         </select>
     </div>
+
+    <input type="submit" value="Create" class="btn btn-primary mt-3">
 
 
 </form>
