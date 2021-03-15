@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<table>
+<table class="table">
     <thead>
         <tr>
             <th>Name</th>
@@ -13,7 +13,12 @@
     </thead>
 
     {% for each_animal in htmlanimals %}
-
+    <tr>
+        <td>{{each_animal.name}}</td>
+        <td>{{each_animal.age}}</td>
+        <td>{{each_animal.breed}}</td>
+        <td>{{each_animal.type}}</td>
+    </tr>
 
 
     {% endfor %}

@@ -3,6 +3,9 @@ import os
 import pymongo
 from dotenv import load_dotenv
 
+# to use ObjectId to access an item in mongo db
+from bson.objectid import ObjectId
+
 # To allow the use of .env file
 load_dotenv()
 
@@ -46,6 +49,18 @@ def process_create_animals():
     )
 
     return "New Animal Saved!"
+
+
+@app.route('/animals/<animal_id>/delete')
+def delete_animal(animal_id):
+    animal = db.animals.find_one(
+        {
+            "_id": ObjectId(animal_id)
+        }
+    )
+
+    return render_template('confirm_delete_animal.template.html',
+                            animal_to_delete=animal)
 
 
 if __name__ == '__main__':
