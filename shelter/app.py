@@ -51,6 +51,9 @@ def process_create_animals():
 
     return "New Animal Saved!"
 
+# this route is to get the id to be deleted
+# and prompt the user for confirmation
+
 
 @app.route('/animals/<animal_id>/delete')
 def delete_animal(animal_id):
@@ -62,6 +65,15 @@ def delete_animal(animal_id):
 
     return render_template('confirm_delete_animal.template.html',
                            animal_to_delete=animal)
+
+
+@app.route('/animals/<animal_id>/delete', methods=["POST"])
+def process_delete_animal(animal_id):
+    db.animals.remove({
+        "_id": ObjectId(animal_id)
+    })
+
+    return redirect(url_for('show_all_animals'))
 
 
 if __name__ == '__main__':
