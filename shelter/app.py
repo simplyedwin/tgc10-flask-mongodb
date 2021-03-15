@@ -23,7 +23,8 @@ db = client[DB_NAME]
 @app.route('/animals')
 def show_all_animals():
     animals = db.animals.find()
-    return render_template('show_animals.template.html', htmlanimals=animals)
+    return render_template('show_animals.template.html',
+                           htmlanimals=animals)
 
 
 @app.route('/animals/create')
@@ -60,8 +61,9 @@ def delete_animal(animal_id):
     )
 
     return render_template('confirm_delete_animal.template.html',
-                            animal_to_delete=animal)
+                           animal_to_delete=animal)
 
 
 if __name__ == '__main__':
-    app.run(host=os.environ.get('IP'), port=os.environ.get('PORT'), debug=True)
+    app.run(host=os.environ.get('IP'), port=os.environ.get('PORT'),
+            debug=True)
